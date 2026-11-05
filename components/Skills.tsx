@@ -47,8 +47,6 @@ export const Skills: React.FC = () => {
           <p className="font-mono text-sm text-[#6366F1] mb-3">02 — Skills</p>
           <h2 className="font-heading font-bold text-3xl sm:text-4xl tracking-tight text-[#FAFAFA]">
             Technical Toolchain
-            <br />
-            <span className="text-[#A1A1AA]">& Grouped Areas</span>
           </h2>
         </div>
 

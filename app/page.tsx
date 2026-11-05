@@ -3,15 +3,12 @@
 import React, { useCallback, useState } from "react";
 
 import { Preloader } from "@/components/Preloader";
-import { CustomCursor } from "@/components/CustomCursor";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { TechMarquee } from "@/components/TechMarquee";
 import { Projects } from "@/components/Projects";
-import { About } from "@/components/About";
 import { Skills } from "@/components/Skills";
 import { Experience } from "@/components/Experience";
-import { GitHubActivity } from "@/components/GitHubActivity";
 import { CredibilityBoosters } from "@/components/CredibilityBoosters";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
@@ -37,15 +34,12 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#09090B] text-[#FAFAFA] overflow-x-hidden">
       {showPreloader && <Preloader onComplete={handlePreloaderComplete} />}
-      <CustomCursor />
       <Navbar />
       <Hero />
       <TechMarquee />
       <Projects />
-      <About />
       <Skills />
       <Experience />
-      <GitHubActivity />
       <CredibilityBoosters />
       <Contact onCopyEmail={handleCopyEmail} />
       <Footer />

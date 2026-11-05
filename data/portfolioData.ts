@@ -19,13 +19,6 @@ export const PERSONAL_INFO = {
   email: "vcrasnojon73@gmail.com",
 };
 
-export const CURRENTLY_NOW = {
-  building: "Fitterz — AI wardrobe engine",
-  learning: "AI pipelines (agent orchestration / RAG streaming)",
-  reading: "Designing Data-Intensive Applications (Martin Kleppmann)",
-  listening: "Lo-Fi (Focus stream)",
-};
-
 export const CERTIFICATIONS: CertificationItem[] = [
   {
     title: "Competențe Digitale Avanzate Generale",
@@ -42,6 +35,12 @@ export const CERTIFICATIONS: CertificationItem[] = [
     title: "Claude 101",
     issuer: "Anthropic Education",
     year: "2026",
+  },
+  {
+    title: "Supervised Machine Learning: Regression and Classification",
+    issuer: "DeepLearning.AI · Stanford Online / Coursera",
+    year: "2026",
+    code: "7ZZYMTJ50PZC",
   },
 ];
 
@@ -85,6 +84,50 @@ export const SKILL_CATEGORIES: SkillCategoryItem[] = [
 
 export const PROJECTS: ProjectItem[] = [
   {
+    id: "listit",
+    title: "LISTIT — Marketplace MVP",
+    tagline: "High-performance classifieds backend with geo-distance queries and real-time chat.",
+    description:
+      "Community marketplace platform MVP built with Django REST Framework, Celery background workers, and PostgreSQL PostGIS spatial indexing for local radius searches.",
+    image: "/assets/projects/listit-1.png",
+    galleryImages: [
+      "/assets/projects/listit-1.png",
+      "/assets/projects/listit-2.png",
+      "/assets/projects/listit-mobile.png",
+    ],
+    githubUrl: "https://github.com/Vlad-Crasnojon/LISTIT",
+    demoUrl: "https://listit-market.com/",
+    isFeatured: true,
+    category: "Backend / Systems",
+    techStack: ["Django DRF", "PostgreSQL", "Celery", "Redis", "PostGIS"],
+    highlights: [
+      "Sub-millisecond spatial queries filtering items within dynamic radius.",
+      "Asynchronous thumbnail generation and notifications via Celery & Redis.",
+    ],
+  },
+  {
+    id: "fitterz",
+    title: "Fitterz — AI Wardrobe Engine",
+    tagline: "Computer vision garment segmentation & outfit recommendation engine.",
+    description:
+      "Wardrobe management assistant leveraging Fashion-CLIP and YOLOS for automatic clothing detection, category extraction, and palette-compatible outfit generation.",
+    image: "/assets/projects/fitterz-1.png",
+    galleryImages: [
+      "/assets/projects/fitterz-1.png",
+      "/assets/projects/fitterz-2.png",
+      "/assets/projects/fitterz-mobile.png",
+    ],
+    githubUrl: "https://github.com/Vlad-Crasnojon/Fitterzz",
+    demoUrl: "https://fitterz-wear.com/",
+    isFeatured: true,
+    category: "Computer Vision / AI",
+    techStack: ["PyTorch", "Fashion-CLIP", "YOLOS", "FastAPI", "React"],
+    highlights: [
+      "Zero-shot item categorization and automatic palette tagging.",
+      "Local model inference pipeline wrapped in containerized FastAPI endpoint.",
+    ],
+  },
+  {
     id: "ailin",
     title: "AILIN — Legal-Tech Platform",
     tagline: "Specialized enterprise web platform for Romanian insolvency practitioners and administrators.",
@@ -116,11 +159,6 @@ export const PROJECTS: ProjectItem[] = [
     ],
     problemSolved:
       "Insolvency practitioners in Romania manually sifted through hundreds of legal gazettes daily. AILIN automated ingestion, NLP classification, and statutory deadline calculations, eliminating 15+ hours of weekly manual paralegal labor.",
-    metrics: [
-      { label: "Ingestion Speed", value: "450 docs/min" },
-      { label: "Extraction Precision", value: "98.4%" },
-      { label: "Time Saved", value: "15+ hrs/wk" },
-    ],
   },
   {
     id: "abcmate",
@@ -128,8 +166,8 @@ export const PROJECTS: ProjectItem[] = [
     tagline: "Custom digital storefront and educational resources distribution platform.",
     description:
       "High-performance e-commerce and digital curriculum distribution web platform built with Django, PostgreSQL, Celery background tasks, and Tailwind CSS. Powers order fulfillment, digital download security, and customer accounting.",
-    image: null,
-    galleryImages: [],
+    image: "/assets/projects/abcmate-1.png",
+    galleryImages: ["/assets/projects/abcmate-1.png"],
     githubUrl: "https://github.com/Vlad-Crasnojon/ABC-MATE-Junior",
     isFeatured: true,
     category: "Full-Stack / E-Commerce",
@@ -149,71 +187,6 @@ export const PROJECTS: ProjectItem[] = [
       { label: "Order Latency", value: "<180ms" },
       { label: "Payment Success Rate", value: "99.9%" },
       { label: "Zero SaaS Fees", value: "$0/mo" },
-    ],
-  },
-  {
-    id: "docchat-rag",
-    title: "docchat-rag — Legal RAG Assistant",
-    tagline: "Conversational legal assistant leveraging hybrid dense/sparse retrieval and pgvector.",
-    description:
-      "Production-style RAG implementation querying complex Romanian commercial contracts and legislation. Built with FastAPI, LangGraph, pgvector, and Gemini embeddings.",
-    image: null,
-    githubUrl: "https://github.com/Vlad-Crasnojon/docchat-rag",
-    isFeatured: false,
-    category: "AI / RAG",
-    techStack: ["FastAPI", "pgvector", "Gemini API", "LangGraph", "PostgreSQL", "Docker"],
-    highlights: [
-      "Hybrid search combining BM25 keyword matching with pgvector cosine similarity.",
-      "Document chunking with contextual metadata enrichment and cross-encoder re-ranking.",
-      "Streaming SSE response tokens directly to client interface with hallucination citations.",
-    ],
-  },
-  {
-    id: "fitterz",
-    title: "Fitterz — AI Wardrobe Engine",
-    tagline: "Computer vision garment segmentation & outfit recommendation engine.",
-    description:
-      "Wardrobe management assistant leveraging Fashion-CLIP and YOLOS for automatic clothing detection, category extraction, and palette-compatible outfit generation.",
-    image: "/assets/fitterz-landing.png",
-    githubUrl: "https://github.com/Vlad-Crasnojon/Fitterzz",
-    isFeatured: false,
-    category: "Computer Vision / AI",
-    techStack: ["PyTorch", "Fashion-CLIP", "YOLOS", "FastAPI", "React"],
-    highlights: [
-      "Zero-shot item categorization and automatic palette tagging.",
-      "Local model inference pipeline wrapped in containerized FastAPI endpoint.",
-    ],
-  },
-  {
-    id: "listit",
-    title: "LISTIT — Marketplace MVP",
-    tagline: "High-performance classifieds backend with geo-distance queries and real-time chat.",
-    description:
-      "Community marketplace platform MVP built with Django REST Framework, Celery background workers, and PostgreSQL PostGIS spatial indexing for local radius searches.",
-    image: null,
-    githubUrl: "https://github.com/Vlad-Crasnojon/LISTIT",
-    isFeatured: false,
-    category: "Backend / Systems",
-    techStack: ["Django DRF", "PostgreSQL", "Celery", "Redis", "PostGIS"],
-    highlights: [
-      "Sub-millisecond spatial queries filtering items within dynamic radius.",
-      "Asynchronous thumbnail generation and notifications via Celery & Redis.",
-    ],
-  },
-  {
-    id: "rust-tools",
-    title: "Rust Tools (rusthelper / rustradar)",
-    tagline: "High-speed systems utilities for developer workflows and network telemetry.",
-    description:
-      "Suite of native command-line utilities written in Rust providing fast log indexing, directory monitoring, and lightweight network service latency checks.",
-    image: null,
-    githubUrl: "https://github.com/Vlad-Crasnojon/rusthelper",
-    isFeatured: false,
-    category: "Systems / CLI",
-    techStack: ["Rust", "Tokio", "Clap", "Regex", "Cross-Platform"],
-    highlights: [
-      "Zero-allocation pattern matching using Tokio asynchronous runtimes.",
-      "Instant memory-safe execution across Linux, macOS, and Windows environments.",
     ],
   },
 ];

@@ -21,7 +21,6 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
-  Code2,
 } from "lucide-react";
 import { GithubIcon } from "@/components/BrandIcons";
 
@@ -50,15 +49,17 @@ export const Projects: React.FC = () => {
           ))}
         </div>
 
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {grid.map((project) => (
-            <GridTiltCard
-              key={project.id}
-              project={project}
-              onOpenCaseStudy={() => setCaseStudy(project)}
-            />
-          ))}
-        </div>
+        {grid.length > 0 && (
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {grid.map((project) => (
+              <GridTiltCard
+                key={project.id}
+                project={project}
+                onOpenCaseStudy={() => setCaseStudy(project)}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       <AnimatePresence>
@@ -161,13 +162,7 @@ const ProductFrame: React.FC<{ project: ProjectItem }> = ({ project }) => {
   );
 };
 
-const ProjectVisual: React.FC<{ project: ProjectItem; isHovered: boolean; reduceMotion: boolean | null }> = ({
-  project,
-  isHovered,
-  reduceMotion,
-}) => {
-  const clipWipe = !reduceMotion && isHovered;
-
+const ProjectVisual: React.FC<{ project: ProjectItem }> = ({ project }) => {
   return (
     <div className="relative w-full aspect-[16/10] overflow-hidden bg-[#09090B]">
       {project.image ? (
@@ -179,29 +174,6 @@ const ProjectVisual: React.FC<{ project: ProjectItem; isHovered: boolean; reduce
       ) : (
         <ProductFrame project={project} />
       )}
-
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        style={{ backgroundColor: "rgba(99,102,241,0.15)" }}
-        initial={false}
-        animate={{
-          clipPath: clipWipe
-            ? "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)"
-            : "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
-        }}
-        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-      />
-
-      <motion.div
-        className="absolute bottom-3 left-3 font-mono text-[10px] text-[#818CF8] uppercase tracking-widest"
-        animate={{
-          y: clipWipe || reduceMotion ? 0 : 36,
-          opacity: clipWipe || reduceMotion ? 1 : 0,
-        }}
-        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-      >
-        Explore Case Study →
-      </motion.div>
     </div>
   );
 };
@@ -236,20 +208,12 @@ const FeaturedTiltCard: React.FC<{
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div className="lg:col-span-7">
               <BrowserChrome url={`${PERSONAL_INFO.github.replace("https://", "")}/${project.id}`}>
-                <ProjectVisual project={project} isHovered={isHovered} reduceMotion={shouldReduceMotion} />
+                <ProjectVisual project={project} />
               </BrowserChrome>
             </div>
 
             <div className="lg:col-span-5 flex flex-col">
-              <div className="flex items-start justify-between gap-3">
-                <motion.span
-                  whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
-                  transition={{ duration: 0.15 }}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#6366F1]/10 border border-[#6366F1]/30 text-[#818CF8] font-mono text-[10px] uppercase tracking-wider"
-                >
-                  <Code2 className="w-3 h-3" />
-                  Source on GitHub
-                </motion.span>
+              <div className="flex items-start gap-3">
                 <span className="font-mono text-[10px] text-[#71717A] uppercase tracking-wider">
                   {project.category}
                 </span>
@@ -297,6 +261,17 @@ const FeaturedTiltCard: React.FC<{
                   GitHub Repository
                   <ArrowUpRight className="w-3 h-3" />
                 </a>
+                {project.demoUrl && (
+                  <a
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-mono text-[#10B981] hover:text-[#34D399] transition-colors cursor-pointer"
+                  >
+                    Live Demo
+                    <ArrowUpRight className="w-3 h-3" />
+                  </a>
+                )}
                 <button
                   onClick={onOpenCaseStudy}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#27272A]/70 border border-[#3F3F46] text-xs font-mono text-[#FAFAFA] hover:border-[#6366F1] hover:text-white transition-colors cursor-pointer"
@@ -317,7 +292,6 @@ const GridTiltCard: React.FC<{
   project: ProjectItem;
   onOpenCaseStudy: () => void;
 }> = ({ project, onOpenCaseStudy }) => {
-  const [isHovered, setIsHovered] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -327,8 +301,6 @@ const GridTiltCard: React.FC<{
       viewport={defaultViewport}
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="h-full"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <TiltCard maxTilt={5} className="h-full">
         <div className="h-full rounded-xl border border-[#27272A] bg-[#18181B] p-4 flex flex-col gap-3 hover:border-[#3F3F46] transition-colors duration-250">
@@ -341,7 +313,7 @@ const GridTiltCard: React.FC<{
             </span>
           </div>
 
-          <ProjectVisual project={project} isHovered={isHovered} reduceMotion={shouldReduceMotion} />
+          <ProjectVisual project={project} />
 
           <div className="flex flex-col flex-1">
             <h4 className="font-heading font-semibold text-sm text-[#FAFAFA] leading-snug">
@@ -364,15 +336,27 @@ const GridTiltCard: React.FC<{
           </div>
 
           <div className="flex items-center justify-between pt-3 mt-auto border-t border-[#27272A]">
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1 text-[10px] font-mono text-[#6366F1] hover:text-[#818CF8] transition-colors cursor-pointer"
-            >
-              <GithubIcon className="w-3 h-3" />
-              Repo
-            </a>
+            <div className="flex items-center gap-3">
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1 text-[10px] font-mono text-[#6366F1] hover:text-[#818CF8] transition-colors cursor-pointer"
+              >
+                <GithubIcon className="w-3 h-3" />
+                Repo
+              </a>
+              {project.demoUrl && (
+                <a
+                  href={project.demoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1 text-[10px] font-mono text-[#10B981] hover:text-[#34D399] transition-colors cursor-pointer"
+                >
+                  Live
+                </a>
+              )}
+            </div>
             <button
               onClick={onOpenCaseStudy}
               className="text-[10px] font-mono text-[#71717A] hover:text-[#FAFAFA] transition-colors cursor-pointer"
@@ -544,6 +528,17 @@ const CaseStudyModal: React.FC<{ project: ProjectItem; onClose: () => void }> = 
 
         <div className="flex items-center justify-between px-5 py-4 border-t border-[#27272A]">
           <span className="font-mono text-[10px] text-[#52525B]">{project.id} · {project.category}</span>
+          <div className="flex items-center gap-2">
+            {project.demoUrl && (
+              <a
+                href={project.demoUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#10B981] hover:bg-[#34D399] text-white text-xs font-mono font-medium transition-colors cursor-pointer"
+              >
+                Live Demo
+              </a>
+            )}
           <a
             href={project.githubUrl}
             target="_blank"
@@ -553,6 +548,7 @@ const CaseStudyModal: React.FC<{ project: ProjectItem; onClose: () => void }> = 
             <GithubIcon className="w-3.5 h-3.5" />
             Open Repository on GitHub
           </a>
+          </div>
         </div>
       </motion.div>
     </motion.div>
